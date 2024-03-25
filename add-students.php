@@ -1,5 +1,20 @@
 <?php 
     include_once 'header.php';
+    include_once 'config.php'; 
+
+    if(isset($_POST['submit'])){
+
+
+
+         $ins_query = "INSERT INTO `tbl_user` (`name`, `email`, `course`, `country` , `address`, `pincode`, `mobile`, `linkedin` , `role`) VALUES ('".$_POST['name']."', '".$_POST['email']."', '".$_POST['course']."', '".$_POST['country']."', '".$_POST['address']."', '".$_POST['pincode']."', '".$_POST['mobile']."', '".$_POST['linkedin']."','3')";
+
+        // echo $ins_query;
+
+         mysqli_query($link,$ins_query) or die(mysql_error());
+
+         echo '<script type="text/javascript">alert("Data added successfully")</script>';
+    }
+
 
 ?>
 
@@ -9,23 +24,23 @@
                     <div class="card shadow mb-4">
                         
                         <div class="card-body">
-                             <form>
+                             <form  name="form" method="post" action="" class="form-group ml-3" >
    
 <div class="form-group">
     <label for="exampleInputEmail1">Full Name</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="name">
+    <input type="text" class="form-control" id="exampleInputEmail1" name="name">
     
   </div>
 
 
   <div class="form-group">
     <label for="exampleInputEmail1">Email</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="email">
+    <input type="text" class="form-control" id="exampleInputEmail1" name="email">
     
   </div>
  <div class="form-group">
     <label for="exampleInputEmail1">Course</label>
-   <select name="department" id="cars" class="form-control">
+   <select name="course" id="cars" class="form-control">
   <option value="3D Computer Animation">3D Computer Animation</option>
   <option value="Academic Upgrading">Academic Upgrading</option>
   <option value="mercedes">Accommodation and Human Rights Management</option>
@@ -298,32 +313,28 @@
 
    <div class="form-group">
     <label for="exampleInputPassword1">Address</label>
-    <textarea name="address" cols="120" rows="5" class="form-control"></textarea>
+    <textarea name="address" cols="120" rows="5" class="form-control" name="address"></textarea>
   </div>
   
-<div class="form-group">
-    <label for="exampleInputEmail1">Country</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Country">
-    
-  </div>
+
   
 <div class="form-group">
     <label for="exampleInputEmail1">Pincode</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Pincode">
+    <input type="text" class="form-control" id="exampleInputEmail1" name="pincode">
     
   </div>
 
 <div class="form-group">
     <label for="exampleInputEmail1">Mobile</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Mobile">
+    <input type="text" class="form-control" id="exampleInputEmail1" name="mobile">
     
   </div>
 
 <div class="form-group">
     <label for="exampleInputEmail1">LinkedIn</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Linkedin">
+    <input type="text" class="form-control" id="exampleInputEmail1" name="linkedin">
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+ <input name="submit" type="submit" value="Submit" class="btn btn-primary"/> 
 </form>
                         </div>
                     </div>

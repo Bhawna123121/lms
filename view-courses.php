@@ -2,6 +2,15 @@
     include_once 'header.php';
 ?>
 
+<?php include_once 'config.php' ?>
+<?php 
+
+   $selectSQL = 'SELECT * FROM `tbl_course`';
+  
+    # Execute the SELECT Query
+    $result = mysqli_query($link, $selectSQL);
+?>
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -22,21 +31,31 @@
                                     </thead>
                                     
                                     <tbody>
+ 
+
+  <?php
+      if( mysqli_num_rows( $result )==0 ){
+        echo '<tr><td colspan="4">No Rows Returned</td></tr>';
+      }else{
+        while( $row = mysqli_fetch_assoc( $result ) ){
+
+
+
+            ?>
+
+
                                         <tr>
-                                            <td>SL0098</td>
-                                            <td>System Architect</td>
-                                             <td><a href="#" class="btn btn-primary">Edit</a> &nbsp; &nbsp; <a href="#" class="btn btn-danger">Delete</a></td>
+                                            <td><?= $row['course_code'] ?></td>
+                                            <td><?= $row['course_name'] ?></td>
+                                             <td><a href="#" class="btn btn-primary">Edit</a> &nbsp; &nbsp; <a href="delete-course.php?id="<?= $row['id'] ?> class="btn btn-danger">Delete</a></td>
                                         </tr>
-                                        <tr>
-                                            <td>SL0067</td>
-                                            <td>Accommodation and Human Rights Management</td>
-                                             <td><a href="#" class="btn btn-primary">Edit</a> &nbsp; &nbsp; <a href="#" class="btn btn-danger">Delete</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>CS8656</td>
-                                            <td>Administrative Business Management</td>
-                                             <td><a href="#" class="btn btn-primary">Edit</a> &nbsp; &nbsp; <a href="#" class="btn btn-danger">Delete</a></td>
-                                        </tr>
+
+            <?php
+        
+        }
+      }
+    ?>
+
                                        
                                     </tbody>
                                 </table>

@@ -1,5 +1,19 @@
 <?php 
     include_once 'header.php';
+    include_once 'config.php'; 
+    $selectSQL = 'SELECT * FROM `tbl_course`';
+    $result = mysqli_query($link, $selectSQL);
+
+    if(isset($_POST['submit'])){
+
+
+
+         $ins_query = "INSERT INTO `tbl_subject` (`course_id`, `subject_name`, `subject_code`) VALUES ('".$_POST['course_id']."', '".$_POST['subject_name']."', '".$_POST['subject_code']."')";
+
+         mysqli_query($link,$ins_query) or die(mysql_error());
+
+         echo '<script type="text/javascript">alert("Data added successfully")</script>';
+    }
 
 ?>
 
@@ -12,25 +26,35 @@
                             <h6 class="m-0 font-weight-bold text-primary">Add Subject</h6>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form name="form" method="post" action="" class="form-group ml-3" >
   <div class="form-group">
     <label for="exampleInputEmail1">Subject Name</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter subject name">
+    <input type="text" name="subject_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter subject name">
     
   </div>
 
 
   <div class="form-group">
     <label for="exampleInputEmail1">Course Name</label>
-    <select name="department" id="cars" class="form-control">
-  <option value="3D Computer Animation">3D Computer Animation</option>
-  <option value="Academic Upgrading">Academic Upgrading</option>
-  <option value="mercedes">Accommodation and Human Rights Management</option>
-  <option value="audi">Administrative Business Management</option>
-  <option value="3D Computer Animation">Animation</option>
-  <option value="Academic Upgrading">Bachelor of Engineering - Power Systems Engineering</option>
-  <option value="mercedes">Accommodation and Human Rights Management</option>
-  <option value="audi">Agri-Business Management</option>
+    <select name="course_id" id="cars" class="form-control">
+ 
+
+  <?php
+      if( mysqli_num_rows( $result )==0 ){
+        echo '<tr><td colspan="4">No Rows Returned</td></tr>';
+      }else{
+        while( $row = mysqli_fetch_assoc( $result ) ){
+
+
+
+            ?>
+  <option value="<?= $row['id'] ?>"><?= $row['course_name'] ?></option>
+  <?php
+        
+        }
+      }
+    ?>
+
 </select>
   </div>
 
@@ -38,10 +62,9 @@
 
   <div class="form-group">
     <label for="exampleInputPassword1">Subject Code</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter course code">
+    <input name="subject_code" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter course code">
   </div>
-  
-  <button type="submit" class="btn btn-primary">Submit</button>
+   <input name="submit" type="submit" value="Submit" class="btn btn-primary"/>
 </form>
                         </div>
                     </div>
